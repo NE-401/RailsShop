@@ -1,0 +1,44 @@
+<% content_for :html_title do %>トップページ<% end %>
+
+<% if logged_in? %>
+	<h4>ようこそ、<%= @current_user.name %>様</h4>
+	<br><br>
+	<% if @current_user.admin != false %>
+		<%= link_to "管理者用ページ", "/admin", class:"display-5" %>
+		<br>
+	<% end %>
+	<%= link_to 'マイページ', '/mypage', class:"display-5" %><br>
+	<%= link_to '買い物カゴ', '/mycart', class:"display-5" %><br>
+	<%= link_to "ログアウト","/logout", class:"display-5" , data: {confirm: "ログアウトしますか?"}%><br>
+<% else %>
+	<h4>ようこそ、ゲスト様</h4><br><br>
+	<%= link_to "ログイン", "/login", class:"display-5" %><br>
+	<%= link_to "新規登録", "/register", class:"display-5" %><br>
+<% end %>
+
+<%= link_to "商品を探す", "/products", class: "display-5" %>
+<br><br><br>
+<table class="table" border="1">
+	<tr>
+		<td width="300px"><%= @sample[0].name.length > 23 ? @sample[0].name[0,20]+"..." : @sample[0].name %></td>
+		<td width="300px"><%= @sample[1].name.length > 23 ? @sample[1].name[0,20]+"..." : @sample[1].name %></td>
+		<td width="300px"><%= @sample[2].name.length > 23 ? @sample[2].name[0,20]+"..." : @sample[2].name %></td>
+	</tr>
+	<tr>
+		<td>
+			<a href="/product_detail/<%= @sample[0].id %>">
+				<%= image_tag @sample[0].image.to_s.insert(-41,"thumb_") %>
+			</a>
+		</td>
+		<td>
+			<a href="/product_detail/<%= @sample[1].id %>">
+				<%= image_tag @sample[1].image.to_s.insert(-41,"thumb_") %>
+			</a>
+		</td>
+		<td>
+			<a href="/product_detail/<%= @sample[2].id %>">
+				<%= image_tag @sample[2].image.to_s.insert(-41,"thumb_") %>
+			</a>
+		</td>
+	</tr>
+</table>

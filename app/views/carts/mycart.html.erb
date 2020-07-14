@@ -1,0 +1,79 @@
+<% content_for :html_title do %>買い物カゴ<% end %>
+
+<p id="notice"><%= notice %></p>
+
+<h4 class="display-5 text-primary">買い物カゴ</h4>
+<br><br>
+<% total=0 %>
+<% if @mycart == nil || @mycart.empty? %>
+	買い物カゴに商品は入っていません。
+<% else %>
+	<table border="2" class="table">
+		<thead>
+			<tr>
+				<th class="table_p_name">商品名</th>
+				<th class="table_p_price">単価</th>
+				<th class="table_p_quantity">個数</th>
+				<th class="table_p_subtotal">小計</th>
+				<th width="70px">
+					<%= form_tag("/carts/clear_cart",method: :post) do |f| %>
+						<%= hidden_field_tag :user_id, session[:user_id] %>
+						<%= submit_tag "全て削除", class:"btn btn-danger btn-sm" %>
+					<% end %>
+				</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<% @mycart.each do |cart| %>
+				<tr>
+					<% product=@products.find {|v| v[:id] == cart.product_id} %>
+					<td><%= product[:name] %></td>
+					<td class="price"><%= number_with_delimiter(product[:price]) %>円</td>
+					<td>
+						<% count=1 %>
+						<% array=[] %>
+						<% while count<=product.stock && count<=10 %>
+							<% array.append [count,count] %>
+							<% count+=1 %>
+						<% end %>
+						<%= form_for(cart,url:{controller:"carts", action:"update_quantity"}) do |f| %>
+						<div class="form-group">
+							<%= f.hidden_field :cart_id, value: cart.id %>
+							<%= f.select :quantity, array, :selected => cart.quantity, class:"form-control" %>
+							<%= f.submit "変更", class:"btn btn-success" %>
+						</div>
+						<% end %>
+					</td>
+					<td class="price"><%= number_with_delimiter (product[:price] * cart.quantity) %>円</td>
+					<td>
+						<%= form_tag("/carts/delete") do |f| %>
+							<%= hidden_field_tag :cart_id, cart.id %>
+							<%= submit_tag "削除", data:{confirm: "削除しますか?"},class:"btn btn-warning" %>
+						<% end %>
+					</td>
+					<% total+=(product[:price] * cart.quantity) %>
+				</tr>
+			<% end %>
+			<tr>
+				<td colspan="3"></td>
+				<th>合計金額</th>
+				<th></th>
+			</tr>
+			<tr>
+				<td colspan="3"></td>
+				<td class="price"><%= number_with_delimiter total %>円</td>
+				<td>
+					<%= form_tag("/order_check",method: :post) do |f| %>
+						<%= hidden_field_tag :user_id, session[:user_id] %>
+						<%= submit_tag "注文確認", class:"btn btn-primary" %>
+					<% end %>
+				</td>
+			</tr>
+
+		</tbody>
+	</table>
+<% end %>
+
+<br><br>
+<%= link_to "商品を探す", "/products", class:"btn btn-light" %>

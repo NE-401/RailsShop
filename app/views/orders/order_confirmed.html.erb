@@ -1,0 +1,42 @@
+<% content_for :html_title do %>注文確定<% end %>
+<h4 class="display-5 text-primary">注文確定</h4>
+
+<br><br>
+
+<h5 class="display-6">ご注文ありがとうございました。またのご利用をお待ちしております。</h5>
+
+<% total=0 %>
+<table border="2" class="table">
+	<thead>
+		<tr>
+			<th width="300px">商品名</th>
+			<th width="40px">単価</th>
+			<th width="40px">数量</th>
+			<th width="60px">小計</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @od.each do |order| %>
+			<tr>
+				<% product=@products.find {|v| v[:id] == order.product_id} %>
+				<td><%= product[:name] %></td>
+				<td class="price"><%= number_with_delimiter(product[:price]) %>円</td>
+				<td class="quantity"><%= order.quantity %></td>
+				<td class="price"><%= number_with_delimiter (product[:price] * order.quantity) %>円</td>
+				<% total+=(product[:price] * order.quantity) %>
+			</tr>
+		<% end %>
+		<tr>
+			<td colspan="3"></td>
+			<th>合計金額</th>
+		</tr>
+		<tr>
+			<td colspan="3"></td>
+			<td class="price"><%= number_with_delimiter total %>円</td>
+		</tr>
+
+	</tbody>
+</table>
+
+<%= link_to "トップページ", "/", class:"btn btn-light" %>

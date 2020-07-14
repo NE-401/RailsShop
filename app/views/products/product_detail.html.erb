@@ -1,0 +1,61 @@
+<% content_for :html_title do %>
+	<%= @product.name %>
+<% end %>
+<% category_list=["その他","書籍","音楽","DVD","ゲーム","PC,周辺機器","キッチン","食品,飲料","ホビー"] %>
+
+<p id="notice"><%= notice %></p>
+
+<div style="text-align: center;">
+	<table class="table" border="1">
+		<tr>
+			<td colspan="2"><%= image_tag @product.image.to_s %></td>
+		</tr>
+		<tr>
+			<th>商品名</th>
+			<td><%= @product.name %></td>
+		</tr>
+		<tr>
+			<th>販売元</th>
+			<td><%= @product.publisher %></td>
+		</tr>
+		<tr>
+			<th>カテゴリー</th>
+			<td><%= category_list[@product.category] %></td>
+		</tr>
+		<tr>
+			<th>税込価格</th>
+			<td><%= number_with_delimiter @product.price %>円</td>
+		</tr>
+		<tr>
+			<% if logged_in? %>
+				<% uid = session[:user_id] %>
+				<% pid = @product.id %>
+				<% cq = @cart.quantity %>
+				<% if @product.stock > 0 %>
+					<th>数量</th>
+					<td>
+						<%= form_for(@cart,url:{controller:"carts",action:"add_to_cart"}) do |f| %>
+							<%= f.hidden_field :user_id, :value => uid %>
+							<%= f.hidden_field :product_id, :value => pid %>
+							<% count=1 %>
+							<% array=[] %>
+							<% while count<=@product.stock && count<=10 %>
+								<% array.append [count,count] %>
+								<% count+=1 %>
+							<% end %>
+							<%= f.select :quantity, array, :selected => cq %>
+							<%= f.submit "カートに入れる",class: "btn btn-primary" %>
+						<% end %>
+					</td>
+				<% else %>
+					<th colspan="2" class="text-danger">申し訳ございません。在庫切れです。</th>
+				<% end %>
+			<% else %>
+				<th colspan="2">購入するには、ログインが必要です。</th>
+			<% end %>
+
+		</tr>
+	</table>
+</div>
+
+<%= link_to 'Back', products_path, class:"btn btn-light" %>

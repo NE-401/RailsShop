@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+<% content_for :html_title do %>検索結果<% end %>
+
+<% category_list=["その他","書籍","音楽","DVD","ゲーム","PC,周辺機器","キッチン","食品,飲料","ホビー"] %>
+
+<h4 class="display-5 text-primary">検索結果</h4>
+<br><br>
+
+<% if !@products.empty? %>
+	<% @products.each do |product| %>
+	<table class="table table-bordered" border="1">
+		<tr>
+			<td>
+				<% if product.image.length == 0 %>
+					<a href="/product_detail/<%= product.id %>"><%= image_tag 'noimage_thumb.png' %></a>
+				<% else %>
+					<a href="/product_detail/<%= product.id %>"><%= image_tag product.image.url(:thumb) %></a>
+				<% end %>
+			</td>
+		</tr>
+		<tr>
+			<th>商品名</th>
+			<th>販売元</th>
+			<th>カテゴリー</th>
+			<th>税込価格</th>
+		</tr>
+		<tr>
+			<td width="500px"><%= product.name %></td>
+			<td width="130px"><%= product.publisher %></td>
+			<td width="130px"><%= category_list[product.category] %></td>
+			<td width="120px"><%= number_with_delimiter product.price %>円</td>
+		</tr>
+		</table>
+	<% end %>
+	<div><%= paginate @products %></div>
+
+<% else %>
+	<h6>見つかりませんでした。条件を変えて検索してみてください。</h6>
+<% end %>
+
+<br><br>
+
+<%= link_to '商品一覧へ', '/products' %>

@@ -1,0 +1,44 @@
+<% content_for :html_title do %>マイページ<% end %>
+<h4 class="display-5 text-primary">マイページ</h4>
+<br>
+<p class="display-5 text-success"><%= flash[:notice] %></p>
+<table class="table" border="2">
+	<tr>
+		<th class="t_title">ユーザー名</th>
+		<td class="t_detail"><%= @user.name %></td>
+	</tr>
+	<tr>
+		<th class="t_title">住所</th>
+		<td class="t_detail"><%= @user.address %></td>
+	</tr>
+	<tr>
+		<th class="t_title">メールアドレス</th>
+		<td class="t_detail"><%= @user.mail %></td>
+	</tr>
+	<tr>
+		<th class="t_title">年齢</th>
+		<td class="t_detail"><%= @user.age %></td>
+	</tr>
+	<tr>
+		<th class="t_title">電話番号</th>
+		<td class="t_detail"><%= @user.tel %></td>
+	</tr>
+	<tr>
+		<td class="t_edit">
+		<%= form_tag("/mypage/edit",method: :post) do |f| %>
+			<%= hidden_field_tag :user_id, session[:user_id] %>
+			<%= submit_tag "編集", class:"btn btn-success btn-sm" %>
+		<% end %>
+		</td>
+		<th><%= link_to '戻る', "/",class:"btn btn-light btn-sm" %></th>
+	</tr>
+</table>
+
+<%= form_tag("/order_history",method: :post) do |f2| %>
+	<%= hidden_field_tag :user_id, session[:user_id] %>
+	<%= submit_tag "注文履歴", class:"btn btn-primary btn-sm" %>
+<% end %>
+
+
+<br>
+<br>

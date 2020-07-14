@@ -1,0 +1,72 @@
+<% content_for :html_title do %>注文履歴<% end %>
+<h4 class="display-5 text-primary">注文履歴</h4>
+<br>
+<%= link_to "マイページへ", "/mypage",class:"btn btn-light" %>
+<br><br>
+
+<% if @order_hist.empty? %>
+	<h5>注文履歴がありません。</h5>
+<% else %>
+	<% pre_oid=@order_hist[0].order_id %>
+	<% current_oid=pre_oid %>
+	<% orderdate=@order_hist[0].created_at %>
+	<% total=0 %>
+	<% tm_format="%Y/%m/%d %H:%M:%S" %>
+
+	<table class="table" border="2">
+		<tr>
+			<th>注文日時</th>
+			<td colspan="3"><%= orderdate.in_time_zone('Tokyo').strftime(tm_format) %></td>
+		</tr>
+		<tr>
+			<th class="table_p_name">商品名</th>
+			<th class="table_p_price">単価</th>
+			<th class="table_p_quantity">個数</th>
+			<th class="table_p_subtotal">小計</th>
+		</tr>
+
+	<% @order_hist.each do |history| %>
+		<% product=@products.find {|v| v[:id] == history.product_id} %>
+
+		<% current_oid=history.order_id %>
+		<% if pre_oid != current_oid %>
+			<% pre_oid=current_oid %>
+			<tr>
+				<td colspan="2"></td>
+				<th class="table_total">合計価格</th>
+				<td class="price"><%= number_with_delimiter total %>円</td>
+			</tr>
+			<% total=0 %>
+			</table>
+			<br><br>
+			<table class="table" border="2">
+				<tr>
+					<% orderdate=history.created_at %>
+					<th>注文日時</th>
+					<td colspan="3"><%= orderdate.in_time_zone('Tokyo').strftime(tm_format) %></td>
+				</tr>
+				<tr>
+					<th class="table_p_name">商品名</th>
+					<th class="table_p_price">単価</th>
+					<th class="table_p_quantity">個数</th>
+					<th class="table_p_subtotal">小計</th>
+				</tr>
+		<% end %>
+		<% p=history.old_price %>
+		<% q=(history.quantity).to_i %>
+		<tr>
+			<td class="table_p_name"><%= product[:name] %></td>
+			<td class="price"><%= number_with_delimiter p %>円</td>
+			<td class="table_p_quantity"><%= q %></td>
+			<td class="price"><%= number_with_delimiter p*q %>円</td>
+		</tr>
+
+		<% total=total+(p*q) %>
+	<% end %>
+	<tr>
+		<td colspan="2"></td>
+		<th class="table_total">合計価格</th>
+		<td class="price"><%= number_with_delimiter total %>円</td>
+	</tr>
+	</table>
+<% end %>

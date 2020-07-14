@@ -1,0 +1,5 @@
+class DeleteColumnFromOrder < ActiveRecord::Migration[6.0]
+  def change
+	  remove_column :orders, :order_date, :datetime
+  end
+end

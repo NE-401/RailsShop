@@ -1,0 +1,51 @@
+<% content_for :html_title do %>商品を探す<% end %>
+
+
+<h4 class="display-5 text-primary">商品を探す</h4>
+<br><br>
+
+<% category_list=["その他","書籍","音楽","DVD","ゲーム","PC,周辺機器","キッチン","食品,飲料","ホビー"] %>
+<%= form_tag("/products/search/",method: :get) do %>
+	<%= select_tag :sort_mode, options_for_select([["価格が安い順",1],["価格が高い順",2]]), class: "form-control" %>
+	<%= select_tag :category, options_for_select([["全てのカテゴリー","None"],["その他",0],["書籍",1],["音楽",2],["DVD",3],["ゲーム",4],["PC,周辺機器",5],["キッチン",6],["食品,飲料",7],["ホビー",8]]), class: "form-control" %>
+	<%= text_field_tag("search_word", "",{class:"form-control"}) %>
+	<%= submit_tag("Search",{class:"btn btn-primary"}) %>
+<% end %>
+
+<br><br>
+
+<% if @products != nil && !@products.empty? %>
+	<div class="mt-4 mb-4">
+		<%= page_entries_info @products %>
+	</div>
+	<% @products.each do |product| %>
+		<table class="table table-bordered" border="1">
+		<tr>
+			<td colspan="4">
+				<% if product.image.length == 0 %>
+					<a href="/product_detail/<%= product.id %>"><%= image_tag 'noimage_thumb.png' %></a>
+				<% else %>
+					<a href="/product_detail/<%= product.id %>"><%= image_tag product.image.url(:thumb) %></a>
+				<% end %>
+			</td>
+		</tr>
+		<tr>
+			<th>商品名</th>
+			<th>販売元</th>
+			<th>カテゴリー</th>
+			<th>税込価格</th>
+		</tr>
+		<tr>
+			<td width="500px"><%= product.name %></td>
+			<td width="130px"><%= product.publisher %></td>
+			<td width="130px"><%= category_list[product.category] %></td>
+			<td width="120px"><%= number_with_delimiter product.price %>円</td>
+		</tr>
+	</table>
+	<% end %>
+	<div><%= paginate @products %></div>
+<% else %>
+		<h4>商品が何も登録されていません。</h4>
+<% end %>
+
+<%# <%= link_to 'New Product', new_product_path %>

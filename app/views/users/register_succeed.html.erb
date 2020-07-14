@@ -1,0 +1,15 @@
+<% if request.post? %>
+	<% content_for :html_title do %>登録完了<% end %>
+	<h4 class="display-5 text-primary">登録完了しました。</h4>
+	<%= link_to "トップページ", "/" , class:"btn btn-light" %>
+<% else %>
+	<h4 class="display-5">リダイレクトします...</h4>
+	<script type="text/javascript">
+		setTimeout("link()",0);
+		function link() {
+			location.href="/";
+
+			return false;
+		}
+	</script>
+<% end %>

@@ -1,0 +1,52 @@
+<% content_for :html_title do %>登録情報変更<% end %>
+<h4 class="display-5 text-primary">登録情報変更</h4>
+<br>
+
+<% if @user.errors.any? %>
+<ul>
+	<% @user.errors.full_messages.each do |err| %>
+		<li><%= err %></li>
+	<% end %>
+</ul>
+<% end %>
+
+<%= form_for(@user,url:'/mypage/edit') do |form| %>
+	<table class="table">
+		<tr>
+			<th><%= form.label :name, "ユーザー名" %></th>
+			<td><%= form.text_field :name, class:'form-control' %></td>
+		</tr>
+		<tr>
+			<th><%= form.label :tel, "電話番号" %></th>
+			<td><%= form.text_field :tel,class:'form-control' %></td>
+		</tr>
+		<tr>
+			<th><%= form.label :address, "住所" %></th>
+			<td><%= form.text_field :address,class:'form-control' %></td>
+		</tr>
+		<tr>
+			<th><%= form.label :mail, "メールアドレス" %></th>
+			<td><%= form.text_field :mail,class:'form-control' %></td>
+		</tr>
+		<tr>
+			<th><%= form.label :age, "年齢" %></th>
+			<td><%= form.number_field :age,class:'form-control' %></td>
+		</tr>
+		<tr>
+			<th><%= form.label :password, "パスワード(8文字以上)" %></th>
+			<td><%= form.password_field :password ,class:'form-control' %></td>
+		</tr>
+		<tr>
+			<th><%= form.label :password_confirmation, "パスワード再入力" %></th>
+			<td><%= form.password_field :password_confirmation ,class:'form-control'%></td>
+		</tr>
+		<tr>
+			<td>
+				<%= form.submit "確認", data: {confirm:"以上の内容で編集します。よろしいですか?"}, class:"btn btn-success" %>
+			</td>
+			<td>
+				<%= link_to '戻る', '/mypage',class:"btn btn-light" %>
+			</td>
+		</tr>
+	</table>
+<% end %>

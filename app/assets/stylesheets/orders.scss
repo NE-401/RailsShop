@@ -1,0 +1,32 @@
+// Place all the styles related to the orders controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.table_p_name {
+	text-align: center;
+	width: 400px;
+}
+
+.table_p_price {
+	text-align: center;
+	width: 100px;
+}
+
+.table_p_quantity {
+	text-align: center;
+	width: 80px;
+}
+
+.table_p_subtotal {
+	text-align: center;
+	width: 100px
+}
+
+.table_total {
+	text-align: center;
+}
+
+.price {
+	text-align: right;
+	margin: 0px;
+}

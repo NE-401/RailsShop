@@ -1,0 +1,5 @@
+<% if @state %>
+	<%= render template: '/products/admin_edit', :locals => {id: params[:id]} %>
+<% else %>
+	<%= render 'home/admin_only' %>
+<% end %>

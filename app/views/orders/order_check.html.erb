@@ -1,0 +1,47 @@
+<% content_for :html_title do %>注文確認<% end %>
+<h4 class="display-5 text-primary">注文確認</h4>
+
+<br><br>
+
+<h5>以下の内容で注文します。よろしいですか?</h5>
+
+<% total=0 %>
+<table border="2" class="table">
+	<thead>
+		<tr>
+			<th width="300px">商品名</th>
+			<th width="40px">単価</th>
+			<th width="40px">数量</th>
+			<th width="60px">小計</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @mycart.each do |cart| %>
+			<tr>
+				<% product=@products.find {|v| v[:id] == cart.product_id} %>
+				<td><%= product[:name] %></td>
+				<td class="price"><%= number_with_delimiter(product[:price]) %>円</td>
+				<td class="quantity"><%= cart.quantity %></td>
+				<td class="price"><%= number_with_delimiter (product[:price] * cart.quantity) %>円</td>
+				<% total+=(product[:price] * cart.quantity) %>
+			</tr>
+		<% end %>
+		<tr>
+			<td colspan="3"></td>
+			<th>合計金額</th>
+		</tr>
+		<tr>
+			<td colspan="3"></td>
+			<td class="price"><%= number_with_delimiter total %>円</td>
+		</tr>
+
+	</tbody>
+</table>
+
+<%= form_tag("/order_confirmed",method: :post) do |f| %>
+	<%= hidden_field_tag :user_id, session[:user_id] %>
+	<%= submit_tag "注文確定", class:"btn btn-primary" %>
+	<font color="FFFFFF">...</font>
+	<%= link_to "戻る", "/mycart",class:"btn btn-light" %>
+<% end %>
