@@ -53,7 +53,7 @@ gem 'carrierwave'
 
 gem 'mini_magick'
 
-gem 'bootstrap','~> 4.0.0'
+gem 'bootstrap','~> 4.3.1'
 
 gem 'jquery-rails'
 
