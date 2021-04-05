@@ -42,3 +42,56 @@
 	border: 1px;
 	line-height: solid;
 }
+
+#test {
+	font-size: 10pt;
+}
+
+.test {
+	font-size: 20pt;
+}
+
+.cyan {
+	color: #00FFFF;
+	font-size: 15pt;
+}
+
+.magenta {
+	color: #FF00FF;
+	font-size: 15pt;
+}
+
+.yellow {
+	color: #FFFF00;
+	font-size: 15pt;
+}
+
+.bg {
+	background : #FFFFFF url(../images/noimage_thumb.png) fixed center center;
+}
+
+.box {
+  width: 100px;
+  height: 100px;
+  background: #000;
+}
+
+.animation {
+  animation: 2s ease 0s 1 normal none running animation;
+}
+
+@keyframes animation {
+  0% {
+    transform: scale(.3);
+  }
+
+  50% {
+    transform: scale(.6) rotate(-45deg);
+    background: red;
+  }
+
+  100% {
+    transform: scale(1) rotate(180deg);
+    background: blue;
+  }
+}

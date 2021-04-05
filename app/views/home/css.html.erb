@@ -1,0 +1,99 @@
+<div class="bg">
+	<p id="test">text size: 10pt</p>
+	<p class="test">text size: 20pt</p>
+	<p class="magenta">Magenta</p>
+	<p class="cyan">Cyan</p>
+	<p class="yellow">Yellow</p>
+	<span style="font-style: normal">
+	これは普通の指定（normal）</span><br>
+	<span style="font-style: italic">これは斜体の指定（italic）</span><br>
+	<span style="font-style: oblique">これは斜体の指定（oblique）</span><br>
+	<span style="text-decoration: none">
+	これは普通の指定（none）</span><br>
+	<span style="text-decoration: underline">
+	下線（underline）</span><br>
+	<span style="text-decoration: overline">
+	上線（overline）</span><br>
+	<span style="text-decoration: line-through">
+	取り消し線（line-through）</span><br>
+	<span style="font-family: 'メイリオ'">
+	フォント: メイリオ</span><br>
+	<span style="font-weight: normal">
+	これは普通の指定（normal）</span><br>
+	<span style="font-weight: bold">bold</span><br>
+	<span style="font-weight: bolder">bolder</span><br>
+	<span style="font-weight: lighter">lighter</span><br>
+	<span style="font-weight: 100">100</span><br>
+	<span style="font-weight: 200">200</span><br>
+	<span style="font-weight: 300">300</span><br>
+	<span style="font-weight: 400">400</span><br>
+	<span style="font-weight: 500">500</span><br>
+	<span style="font-weight: 600">600</span><br>
+	<span style="font-weight: 700">700</span><br>
+	<span style="font-weight: 800">800</span><br>
+	<span style="font-weight: 900">900</span><br>
+	<span style="font: normal 900 15pt 'ＭＳ Ｐ明朝'">fontプロパティ</span><br>
+	<hr>
+	<p style="text-indent: 1em; font-size: 15pt;">あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん</p>
+	<div style="text-align: left">left</div>
+	<div style="text-align: center">center</div>
+	<div style="text-align: right">right</div>
+	<div style="text-align: justify">justify</div>
+	<p style="letter-spacing: 30px;">あいうえおかきくけこ</p>
+	<p style="letter-spacing: 30px;">あいうえおかきくけこ</p>
+	<p style="line-height: 4em; font-size: 15pt;">あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん</p>
+	<hr>
+	<div style="background-color: #AAEEDD">背景色を指定してます。</div>
+	<hr>
+	<div style="margin: 2px 3px 2px 3px">マージンを指定してます。</div>
+	<div style="margin: 5px">マージンを指定してます。（省略）</div>
+	<div style="margin-top: 10px">上マージンを指定してます。</div>
+	<div style="margin-right: 10px">右マージンを指定してます。</div>
+	<div style="margin-bottom: 10px">下マージンを指定してます。</div>
+	<div style="margin-left: 10px">左マージンを指定してます。</div>
+	<div style="padding: 2px 3px 2px 3px">パディングを指定してます。</div>
+	<div style="padding: 5px">パディングを指定してます。（省略）</div>
+	<div style="padding-top: 10px">上パディングを指定してます。</div>
+	<div style="padding-right: 10px">右パディングを指定してます。</div>
+	<div style="padding-bottom: 10px">下パディングを指定してます。</div>
+	<div style="padding-left: 10px">左パディングを指定してます。</div>
+	<div style="border: 10px none red">スタイルの値はnone</div>
+	<div style="border: 10px solid red">スタイルの値はsolid</div>
+	<div style="border: 10px double red">スタイルの値はdouble</div>
+	<div style="border: 10px dashed red">スタイルの値はdashed</div>
+	<div style="border: 10px dotted red">スタイルの値はdotted</div>
+	<div style="border: 10px groove red">スタイルの値はgroove</div>
+	<div style="border: 10px ridge red">スタイルの値はridge</div>
+	<div style="border: 10px inset red">スタイルの値はinset</div>
+	<div style="border: 10px outset red">スタイルの値はoutset</div>
+	<div style="width: 100px; height: 100px; border: 10px solid red">hoge</div>
+	<hr><br>
+	アニメーション回数:<span class="count"></span>
+	<div class="box"></div>
+	<input class="button" type="button" value="アニメーション開始">
+	<script type="text/javascript">
+		var $box = $('.box');
+		var $button = $('.button');
+		var $count = $('.count');
+		var isAnimate = false;
+		var count = 0;
+
+		$button.on('click', function(){
+		  if (isAnimate) {
+		    return;
+		  }
+		  $button.val('アニメーション中');
+		  $box.addClass('animation');
+		  isAnimate = true;
+		});
+
+		$box.on('animationend', function(){
+		  count++;
+		  $button.val('アニメーション開始')
+		  $box.removeClass('animation');
+		  $count.text(count);
+		  isAnimate = false;
+		});
+
+	</script>
+</div>

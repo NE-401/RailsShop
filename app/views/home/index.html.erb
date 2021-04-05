@@ -27,17 +27,29 @@
 	<tr>
 		<td>
 			<a href="/product_detail/<%= @sample[0].id %>">
-				<%= image_tag @sample[0].image.to_s.insert(-41,"thumb_") %>
+				<% if @sample[0].image? %>
+					<%= image_tag @sample[0].image.to_s.insert(-41,"thumb_") %>
+				<% else %>
+					<%= image_tag "noimage_thumb.png" %>
+				<% end %>
 			</a>
 		</td>
 		<td>
 			<a href="/product_detail/<%= @sample[1].id %>">
-				<%= image_tag @sample[1].image.to_s.insert(-41,"thumb_") %>
+				<% if @sample[1].image? %>
+					<%= image_tag @sample[1].image.to_s.insert(-41,"thumb_") %>
+				<% else %>
+					<%= image_tag "noimage_thumb.png" %>
+				<% end %>
 			</a>
 		</td>
 		<td>
 			<a href="/product_detail/<%= @sample[2].id %>">
-				<%= image_tag @sample[2].image.to_s.insert(-41,"thumb_") %>
+				<% if @sample[2].image? %>
+					<%= image_tag @sample[2].image.to_s.insert(-41,"thumb_") %>
+				<% else %>
+						<%= image_tag "noimage_thumb.png" %>
+				<% end %>
 			</a>
 		</td>
 	</tr>

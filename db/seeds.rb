@@ -9,5 +9,5 @@
 require "csv"
 
 CSV.foreach("db/products.csv") do |row|
-	Product.create(:name => row[0], :publisher => row[1], :category => row[2], :price => row[3])
+	Product.create(:name => row[0], :publisher => row[1], :category => row[2], :price => row[3], :stock => row[4], :image => open("#{Rails.root}/product_images/"+row[5]))
 end

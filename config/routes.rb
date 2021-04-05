@@ -71,6 +71,8 @@ Rails.application.routes.draw do
 	patch '/products/edit', to: 'products#edit'
 	patch '/products/update', to: 'products#update'
 
+	get "/css", to: "home#css" 
+
 	#get 'products', to: 'products#index'
 	#post 'products', to: 'products#index'
 
